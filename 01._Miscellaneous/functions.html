@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions - JavaScript Documentation</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>JavaScript Functions Documentation</h1>
+    <p>This page documents what I have learned about JavaScript functions this semester.</p>
+    <nav>
+        <a href="/index.html" class="nav-button">Home</a>
+        <a href="/loops.html" class="nav-button">Loops</a>
+        <a href="/functions.html" class="nav-button">Functions</a>
+    </nav>
+
+    <div class="section">
+        <h2>1. Greet Function</h2>
+        <p>A function that takes a name as a parameter and returns a greeting.</p>
+        <div class="code">
+            function greet(name) {
+                return "Hello, " + name;
+            }
+            console.log(greet("Frederik"));
+        </div>
+        <div class="output">Output: Hello, Frederik</div>
+    </div>
+
+    <div class="section">
+        <h2>2. Random Integer Function</h2>
+        <p>A function that generates a random int between a range (min and max).</p>
+        <div class="code">
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max + 1 - min) + min);
+            }
+            console.log(getRandomInt(4, 9));
+        </div>
+        <div class="output">Output: Random integer between 4 and 9</div>
+    </div>
+
+    <div class="section">
+        <h2>3. Callback Function</h2>
+        <p>Callback function is a function that takes another function (=>).</p>
+        <div class="code">
+            function doTwice(action) {
+                action();
+                action();
+            }
+            doTwice(() => console.log("Working"));
+        </div>
+        <div class="output">Output: Working<br>Working</div>
+    </div>
+
+    <div class="section">
+        <h2>4. Perform Action Function</h2>
+        <p>Another example of a callback function using const.</p>
+        <div class="code">
+            function performAction(name, action) {
+                return action(name);
+            }
+
+            const workingAction = (name) => {
+                return `${name} is working`;
+            }
+            console.log(workingAction("Frederik", workingAction));
+        </div>
+        <div class="output">Output: Frederik is working</div>
+    </div>
+</body>
+</html>

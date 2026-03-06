@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>This page documents what I have learned about JavaScript variables this semester.</h1>
+    <nav>
+        <a href="/html/overview.html" class="nav-button">Hub</a>
+        <a href="/html/loops.html" class="nav-button">Loops</a>
+        <a href="/html/functions.html" class="nav-button">Functions</a>
+    </nav>
+
+    <div class="section">
+        <h2>1. Const vs Let</h2>
+        <p>Const is used per default, switch to let if the value could change</p>
+        <div class="code">
+            const name = "Frederik"; 
+            <br></br>
+            let age = 25;
+            <br></br>
+            age = 21; (This works)
+            <br></br>
+            name = "Frede" (This doesn't work)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Var & scopes</h2>
+        <p>Do not use var per default. It can cause issues through scopes</p>
+        <p>In this example it shows how var 'bleeds' through the scope, it thinks there is only one 'i' for the whole loop</p>
+        <div class="code">
+            for (var i = 0; i < 5; i++) {
+                setTimeout(() => {
+                console.log(i)
+            }, 1000)       
+        }
+        </div>
+        <div class="output">Output: 5 5 5 5 5</div>
+        <br></br>
+        <p>In this example it shows how let is bound to the scope, meaning each time {} is iterated it creates a "new" 'i'</p>
+        <div class="code">
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                console.log(i)
+            }, 1000)       
+        }
+        </div>
+        <div class="output">Output: 0 1 2 3 4</div>
+    </div>
+</body>
+</html>

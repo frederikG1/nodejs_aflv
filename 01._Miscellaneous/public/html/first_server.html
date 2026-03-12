@@ -11,6 +11,8 @@
 </head>
 <body>
     
+    <h1> This page documents what I have learned about how you start your first server.</h1>
+
     <nav>
         <a href="/html/overview.html" class="nav-button">Hub</a>
     </nav>
@@ -38,6 +40,11 @@
         </code></pre>
         <div class="output">This installs express. Express is a framework for node.js that makes building web applications more simple </div>
         <br>
+
+        <pre><code class="language-javascript">
+            npm i nodemon
+        </code>
+        <div class="output">This installs nodemon, which is a tool that automatically restarts the server whenever a file changes. Very valuable</div>
     </div>
 
     <div class="section">
@@ -80,6 +87,13 @@
             });
         </code></pre>
         <div class="output">This will make a server on localhost:8080 displaying "Hello World"</div>
+        <br>
+
+        <p>And now how to actually start the server</p>
+        <pre><code class="language-javascript">
+            npx nodemon app.js
+        </code></pre>
+        <div class="output">Assuming the name of the file is app.js, this will start the server with nodemon</div>
     </div>
 
     <div class="section">
@@ -107,6 +121,10 @@
         </div>
         <br>
 
+        <p>Here we are using path variables :brand and :size. Meaning that when someone visits localhost/energydrinks/monster/large - 
+            it can be displayed through req.params. 
+            This is a way to pass data to the server. 
+        </p>
         <pre><code class="language-javascript">
             app.get('/energydrinks/:brand/:size', (req, res) => {
                 res.send({ data: `
@@ -115,6 +133,17 @@
                     `});
             });
         </code></pre>
+        <br>
+
+        <p>Query parameters is data that is passed in the URL after a '?'</p>
+        <pre><code class="language-javascript">
+            app.get(/'bag', (req, res) => {
+                res.send({ data: req.query});
+            });
+        </code></pre>
+        <div class="output"><img src="/images/param.png" alt="parametersExample">
+            <p>?parametername=value&amp;parametertwo=valuetwo is how this example is set up</p>
+        </div>
     </div>
 
 </body>

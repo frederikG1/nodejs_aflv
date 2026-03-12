@@ -1,0 +1,19 @@
+const express = require ('express');
+
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
+app.get('/energydrinks/:brand/:size', (req, res) => {
+    console.log(req.params);
+    res.send({ data: `
+        Your ${req.params.brand} is very nice.
+        What size it it ${req.params.size}?
+    `});
+});
+
+app.listen(8080, () => {
+  console.log('Server is running on http://localhost:8080');
+});

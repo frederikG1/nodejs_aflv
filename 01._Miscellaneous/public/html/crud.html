@@ -10,7 +10,6 @@
     <script>hljs.highlightAll();</script>
 </head>
 <body>
-
     <h1> This page documents what I have learned about applying CRUD in node js.</h1>
 
     <nav>
@@ -18,10 +17,148 @@
     </nav>
 
     <div class="section">
-        <h2>1. </h2>
+        <h2>1. Using an array to store data </h2>
+        <p>Instead of using a real database, using a simple array is fine for prototyping/testing</p>
+
+        <pre><code class="language-javascript">
+            let movies = [
+                { id: 1, title: 'Interstellar', year: 2014 },
+                { id: 2, title: 'Marty Supreme', year: 2025 }
+            ];
+
+            let nexId = 3;
+        </code></pre>
+        <div class="output">Here is an array of movies with 3 properties: id, title and year. <br>
+            nextId is used to ensure that every new movie added gets a unique id. Since id 1 and 2 
+            is already taken, it starts at 3. 
+        </div>
+
+        <h2>2. Applying CRUD pt.1</h2>
+        <pre><code class="language-javascript">
+            GET /movies - gets movie(s)<br>
+            GET /movies{id} - gets specific movie<br>
+            POST /movies{id} - adds a new movie <br>
+            PUT /movies{id} - modifies all fields<br>
+            PATCH /movies{id} - modifies the selected field(s)<br>
+            DELETE /movies{id} - removes a movie<br>
+        </code></pre>
+        <div class="output">
+            Using {id} tells the server which movie is targeted. 
+        </div>
+        
+
+        <h2>3. Applying CRUD pt.2</h2>
+        <pre><code class="language-javascript">
+            app.get("/movies", (req, res) => {
+                res.send({ data: movies });
+            });
+            
+            app.get("/movies/:id", (req, res) => {
+                const providedMovieId = Number(req.params.id);
+                const foundMovie = movies.find((movie) => movie.id === providedMovieId);
+            
+                if (!foundMovie) {
+                return res.status(404).send({ errorMessage: `No movie found by id: ${req.params.id}` });
+                }
+                res.send(foundMovie);
+            });
+        </code></pre>
+        <div class="output">
+            GET /movies returns the movie array <br>
+            GET /movies{id} fetches specifc movie
+        </div>
+        <br>
+
+        <pre><code class="language-javascript">
+            app.post('/movies', (req, res) => {
+                if (!req.body.title) {
+                return res.status(400).send({ errorMessage: `Title is required`});
+            };
+            
+            const newMovie = {
+                id: nextId++,
+                title: req.body.title,
+                year: req.body.year
+            };
+            
+            movies.push(newMovie)
+            res.status(201).send({data: newMovie})
+            });
+        </code></pre>
+        <div class="output">
+            Checks for title: if not, send back 400 (bad request) <br>
+            If title is found, create newMovie object with id(nextId++ to auto-increment), title and year <br>
+            Pushes the movie to the movie array and sends back what was created
+        </div>
+        <br>
+        
+        <pre><code class="language-javascript">
+            app.patch('/movies/:id', (req, res) => {
+                const providedMovieId = Number(req.params.id);
+                const foundMovie = movies.find((movie) => movie.id === providedMovieId);
+            
+                if(!foundMovie) {
+                    return res.status(404).send({ errorMessage: `No movie found by id: ${req.params.id}`})
+                }
+            
+                if (req.body.title) foundMovie.title = req.body.title;
+                if (req.body.year) foundMovie.year = req.body.year;
+            
+                res.status(200).send({ data: foundMovie });
+            });
+        </code></pre>
+        <div class="output">
+            Searches for movie with specific id, if not found: returns 404 with error message <br>
+            If found: checks if title and year was provided in body, then overwrites <br>
+            Sends back updated movie with 200
+        </div>
+        <br>
+
+        <pre><code class="language-javascript">
+            app.delete('/movies/:id', (req, res) => {
+                const providedMovieId = Number(req.params.id);
+                const foundMovie = movies.find((movie) => movie.id === providedMovieId);
+            
+                if (!foundMovie) {
+                return res.status(404).send({ errorMessage: `No movie found by id: ${req.params.id}` });
+                }
+            
+                movies = movies.filter((movie) => movie.id !== providedMovieId);
+                res.status(204).send();
+            });
+        </code></pre>
+        <div class="output">
+            Same idea as above. <br>
+            Using filter method to make a new array that doesn't contain the movie that was deleted
+        </div>
+        <br>
+
+        <h2>4. How to use it?</h2>
+        <p>The typical way to see if it works is by using Postman. <br>
+        In Postman you could write: 
+        </p>
+
+        <pre><code class="language-javascript">
+            GET:
+            http://localhost:8080/movies (get all movies)<br>
+            http://localhost:8080/movies/1 (get specifc movie)<br>
+            
+            POST:
+            http://localhost:8080/movies<br>
+            {
+                "title": "Spider-Man",
+                "year": 2002
+            } <br>
+
+            PATCH:
+            http://localhost:8080/movies/1<br>
+            {
+                "year": 2015
+            } <br>
+
+            DELETE:
+            http://localhost:8080/movies/1
+        </code></pre>
     </div>
-
-
-    
 </body>
 </html>

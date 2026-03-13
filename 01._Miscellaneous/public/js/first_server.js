@@ -14,6 +14,7 @@ app.get('/energydrinks/:brand/:size', (req, res) => {
     `});
 });
 
+
 app.get('/bag', (req, res) => {
   res.send({ data: req.query});
 });

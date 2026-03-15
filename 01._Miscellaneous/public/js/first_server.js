@@ -19,6 +19,8 @@ app.get('/bag', (req, res) => {
   res.send({ data: req.query});
 });
 
+
+
 app.listen(8080, () => {
   console.log('Server is running on http://localhost:8080');
 });

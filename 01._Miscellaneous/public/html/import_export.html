@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import and Export - JavaScript Documentation</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+
+    <h1> This page documents what I have learned about importing and exporting</h1>
+
+    <nav>
+        <a href="/html/overview.html" class="nav-button">Hub</a>
+    </nav>
+
+    <div class="section">
+        <h2>1. Using express.static()</h2>
+        <p>Instead of writing a route for each file, you can use the built-in express.static() middleware:</p>
+
+        <pre><code class="language-javascript">
+        const express = require('express');
+        const app = express();
+ 
+        app.use(express.static('public'));
+        </code></pre>
+        <div class="output">
+            <p>This tells Express to serve any file inside the public folder. So if you have
+                public/html/overview.html, it becomes accessible at /html/overview.html 
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Exporting and importing </h2>
+        <p> Adding type="module" and using import/export makes it possible to split JavaScript into multiple files:
+        </p>
+
+        <pre><code class="language-javascript">
+        // utils.js
+        export const greet = (name) => `Hello ${name}`;
+ 
+        // app.js
+        import { greet } from './utils.js';
+        console.log(greet('Frederik')); // Hello Frederik
+        </code></pre>
+        <div class="output">
+            <p>Without type="module", we would get an error trying to do this</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. CommonJS vs. ES Modules in Node.js</h2>
+        <p>They do the same thing, just with different syntax:</p>
+
+        <pre><code class="language-javascript">
+        // CommonJS — Node default
+        const express = require('express');
+        module.exports = { something };
+ 
+        // ES Modules — This is more modern but requires "type": "module" in package.json
+        import express from 'express';
+        export { something };
+        </code></pre>
+
+        <div class="output">
+            <p>As stated before, they do the same thing. But some differences are:<br>
+                CommonJS loads files synchronously and works in Node by default.<br>
+                ES Modules loads asynchronously and needs "type": "module" in
+                package.json.<br>
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Client-side vs. server-side redirection</h2>
+        <p>Sometimes you need to send the user to a different page like so:</p>
+    
+        <pre><code class="language-javascript">
+        // Server-side — the server tells the browser to go to a different page
+        app.get('/', (req, res) => {
+            res.redirect('/html/overview.html');
+        });
+
+        // Also server-side - but using path import
+        import path from 'path';
+        
+        app.get('/', (req, res) => {
+            res.sendFile(path.resolve('/html/overview.html'));
+        });
+    
+        // Client-side — the browser navigates to a different page
+        window.location.href = '/html/overview.html';
+        </code></pre>
+    
+        <div class="output">
+            <p>With SSR the server builds the HTML page and sends it to the bwoser<br>
+               With CSR the server sends HTML + JavaScript and then the browser runs it</p>
+        </div>
+    </div>
+
+</body>
+</html>

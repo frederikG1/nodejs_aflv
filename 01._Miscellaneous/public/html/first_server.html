@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 </head>
+
 <body>
-    
+
     <h1> This page documents what I have learned about how you start your first server.</h1>
 
     <nav>
@@ -19,26 +21,30 @@
 
     <div class="section">
         <h2>1. Setting up the environment</h2>
-        <p>Before making a lot of different files, there are a couple of commands to run in the terminal to set up your node environment properly.</p>
+        <p>Before making a lot of different files, there are a couple of commands to run in the terminal to set up your
+            node environment properly.</p>
         <p>The very first think to do is actually making a folder and making sure you are in the right place</p>
 
         <pre><code class="language-javascript">
             mkdir myapp
             cd myapp
         </code></pre>
-        <div class="output">This ensures that you are in the right place for when you want to use the following commands</div>
+        <div class="output">This ensures that you are in the right place for when you want to use the following commands
+        </div>
         <br>
 
         <pre><code class="language-javascript">
             npm init 
         </code></pre>
-        <div class="output">This creates a package.json file for you application</div>
+        <div class="output">This creates a package.json file for you application which stores scripts and dependencies
+            for example</div>
         <br>
 
         <pre><code class="language-javascript">
             npm i express
         </code></pre>
-        <div class="output">This installs express. Express is a framework for node.js that makes building web applications more simple </div>
+        <div class="output">This installs express. Express is a framework for node.js that makes building web
+            applications more simple </div>
         <br>
 
         <pre><code class="language-javascript">
@@ -66,7 +72,7 @@
         <pre><code class="language-javascript">
             import express from 'express';
         </code></pre>
-        <div  class="output">This is another solution, but with this you need "type": "module" in package.json</div>
+        <div class="output">This is another solution, but with this you need "type": "module" in package.json</div>
     </div>
 
     <div class="section">
@@ -121,9 +127,10 @@
         </div>
         <br>
 
-        <p>Here we are using path variables :brand and :size. Meaning that when someone visits localhost/energydrinks/monster/large - 
-            it can be displayed through req.params. 
-            This is a way to pass data to the server. 
+        <p>Here we are using path variables :brand and :size. Meaning that when someone visits
+            localhost/energydrinks/monster/large -
+            it can be displayed through req.params.
+            This is a way to pass data to the server.
         </p>
         <pre><code class="language-javascript">
             app.get('/energydrinks/:brand/:size', (req, res) => {
@@ -147,4 +154,5 @@
     </div>
 
 </body>
+
 </html>

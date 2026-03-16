@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 </head>
+
 <body>
     <h1> This page documents what I have learned about applying CRUD in node js.</h1>
 
@@ -29,8 +31,8 @@
             let nexId = 3;
         </code></pre>
         <div class="output">Here is an array of movies with 3 properties: id, title and year. <br>
-            nextId is used to ensure that every new movie added gets a unique id. Since id 1 and 2 
-            is already taken, it starts at 3. 
+            nextId is used to ensure that every new movie added gets a unique id. Since id 1 and 2
+            is already taken, it starts at 3.
         </div>
 
         <h2>2. Applying CRUD pt.1</h2>
@@ -43,9 +45,9 @@
             DELETE /movies{id} - removes a movie<br>
         </code></pre>
         <div class="output">
-            Using {id} tells the server which movie is targeted. 
+            Using {id} tells the server which movie is targeted.
         </div>
-        
+
 
         <h2>3. Applying CRUD pt.2</h2>
         <pre><code class="language-javascript">
@@ -91,7 +93,7 @@
             Pushes the movie to the movie array and sends back what was created
         </div>
         <br>
-        
+
         <pre><code class="language-javascript">
             app.patch('/movies/:id', (req, res) => {
                 const providedMovieId = Number(req.params.id);
@@ -135,7 +137,7 @@
 
         <h2>4. How to use it?</h2>
         <p>The typical way to see if it works is by using Postman. <br>
-        In Postman you could write: 
+            In Postman you could write:
         </p>
 
         <pre><code class="language-javascript">
@@ -161,4 +163,5 @@
         </code></pre>
     </div>
 </body>
+
 </html>

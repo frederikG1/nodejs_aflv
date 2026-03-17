@@ -57,30 +57,27 @@
         <pre><code class="language-json">
         {
             "scripts": {
-                "start": "node app.js",
-                "dev": "nodemon app.js"
+                "start-dev": "cross-env PORT=8080 NODE_ENV=DEV node app.js",
+                "start-prod": "cross-env PORT=80 node app.js"
             }
         }
         </code></pre>
 
         <pre><code class="language-bash">
-        npm run start   // runs: node app.js
-        npm run dev     // runs: nodemon app.js
+        npm run start-dev   // sets port to 8080 and NODE_ENV to DEV and runs app with node app.js in development mode
+        npm run start-prod  // sets port to 80 and runs node app.js in production mode
         </code></pre>
-
+        
         <div class="output">
-            <p>start is the standard script for running your app in production.<br>
-                dev is typically used during development —nodemon automatically restarts the
-                server whenever you save a file, so you don't have to do it manually.<br>
-                You can name your scripts anything and put any command in them.
+            <p> dev is used for development mode e.g. with nodemon that automatically restarts the
+                server whenever you save a file.<br>
             </p>
         </div>
     </div>
 
     <div class="section">
         <h2>3. Environment variables and port config</h2>
-        <p>Hardcoding a port number like 8080 is fine locally, but in production the hosting platform sets
-            its own port. You can handle both cases using process.env:</p>
+        <p>Hardcoding a port number like 8080 can be done using process.env:</p>
 
         <pre><code class="language-javascript">
         const PORT = process.env.PORT || 8080;
@@ -92,11 +89,8 @@
 
         <div class="output">
             <p>process.env.PORT checks if the environment has a port set.<br>
-                If it doesn't find one, it falls back to 8080 — which is your local default.<br>
-                server.address().port logs the actual port the server ended up running on, which is useful
-                to confirm which one was used.<br>
-                For more environment variables (like database URLs or API keys), you'd typically store them in a
-                .env file and load them using the dotenv package.
+                If it doesn't find one, it falls back to 8080 which is default<br>
+                server.address().port logs the port the server ends up running on.
             </p>
         </div>
     </div>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routing and scripts - JavaScript Documentation</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+
+    <h1> This page documents what I have learned about using routing and package.json for scripts </h1>
+
+    <nav>
+        <a href="/html/overview.html" class="nav-button">Hub</a>
+    </nav>
+
+    <div class="section">
+        <h2>1. Routing with Express Router</h2>
+        <p>As your app grows, putting all your routes in one file gets messy. Express has a built-in Router
+            that lets you split your routes into separate files:</p>
+
+        <pre><code class="language-javascript">
+        // routes/pagesRouter.js
+        import { Router } from 'express';
+        const router = Router();
+ 
+        router.get('/about', (req, res) => {
+            res.send(aboutPage);
+        });
+
+        export default router;
+        </code></pre>
+
+        <pre><code class="language-javascript">
+        // app.js
+        import pagesRouter from './routes/pagesRouter.js';
+ 
+        app.use(pagesRouter);
+        </code></pre>
+        <div class="output">
+            <p>The route defined in pagesRouter.js is now accessible at /about <br>
+                This keeps the code organised. So each router handles its own 'area', like if we had a contactPage, showmorePage etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Scripts in package.json</h2>
+        <p>Instead of typing out long commands every time, you can define shortcuts in the scripts field of
+            your package.json:</p>
+
+        <pre><code class="language-json">
+        {
+            "scripts": {
+                "start": "node app.js",
+                "dev": "nodemon app.js"
+            }
+        }
+        </code></pre>
+
+        <pre><code class="language-bash">
+        npm run start   // runs: node app.js
+        npm run dev     // runs: nodemon app.js
+        </code></pre>
+
+        <div class="output">
+            <p>start is the standard script for running your app in production.<br>
+                dev is typically used during development —nodemon automatically restarts the
+                server whenever you save a file, so you don't have to do it manually.<br>
+                You can name your scripts anything and put any command in them.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Environment variables and port config</h2>
+        <p>Hardcoding a port number like 8080 is fine locally, but in production the hosting platform sets
+            its own port. You can handle both cases using process.env:</p>
+
+        <pre><code class="language-javascript">
+        const PORT = process.env.PORT || 8080;
+ 
+        const server = app.listen(PORT, () => {
+            console.log("Server started on port", server.address().port);
+        });
+        </code></pre>
+
+        <div class="output">
+            <p>process.env.PORT checks if the environment has a port set.<br>
+                If it doesn't find one, it falls back to 8080 — which is your local default.<br>
+                server.address().port logs the actual port the server ended up running on, which is useful
+                to confirm which one was used.<br>
+                For more environment variables (like database URLs or API keys), you'd typically store them in a
+                .env file and load them using the dotenv package.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

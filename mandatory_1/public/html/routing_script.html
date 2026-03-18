@@ -21,8 +21,7 @@
 
     <div class="section">
         <h2>1. Routing with Express Router</h2>
-        <p>As your app grows, putting all your routes in one file gets messy. Express has a built-in Router
-            that lets you split your routes into separate files:</p>
+        <p>Using Router allows you to split routes into separate files:</p>
 
         <pre><code class="language-javascript">
         // routes/pagesRouter.js
@@ -44,7 +43,8 @@
         </code></pre>
         <div class="output">
             <p>The route defined in pagesRouter.js is now accessible at /about <br>
-                This keeps the code organised. So each router handles its own 'area', like if we had a contactPage, showmorePage etc.
+                This keeps the code organised. So each router handles its own 'area', like if we had a contactPage,
+                showmorePage etc.
             </p>
         </div>
     </div>
@@ -67,7 +67,7 @@
         npm run start-dev   // sets port to 8080 and NODE_ENV to DEV and runs app with node app.js in development mode
         npm run start-prod  // sets port to 80 and runs node app.js in production mode
         </code></pre>
-        
+
         <div class="output">
             <p> dev is used for development mode e.g. with nodemon that automatically restarts the
                 server whenever you save a file.<br>
